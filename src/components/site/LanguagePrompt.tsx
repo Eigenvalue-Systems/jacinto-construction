@@ -98,10 +98,6 @@ export function LanguagePrompt({ locale, companyName }: Props) {
             <span className={styles.choiceLabel}>Español</span>
           </a>
         </div>
-        <p className={styles.note}>
-          <span lang="en">You can change this later from the menu.</span>
-          <span lang="es">Puede cambiarlo después desde el menú.</span>
-        </p>
       </div>
     </dialog>
   )
