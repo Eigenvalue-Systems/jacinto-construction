@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
   }
 
   const supabase = await createServerSupabase()
-  const { error } = await supabase.auth.verifyOtp({ token_hash: tokenHash, type: 'email' })
+  const { error } = await supabase.auth.verifyOtp({ token_hash: tokenHash, type: 'magiclink' })
 
   if (error) {
     return NextResponse.redirect(new URL('/admin/login?error=invalid', url.origin))
