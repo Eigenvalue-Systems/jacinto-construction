@@ -63,6 +63,11 @@ export function SiteFooter({ locale, dict, settings, logoUrl }: Props) {
               </a>
             </li>
             <li>
+              <a href={s.smsHref} className="link-line">
+                {locale === 'es' ? 'Mandar texto' : 'Text'}
+              </a>
+            </li>
+            <li>
               <a href={s.emailHref} className={`link-line ${styles.email}`}>
                 {settings.email}
               </a>
@@ -84,9 +89,6 @@ export function SiteFooter({ locale, dict, settings, logoUrl }: Props) {
       </div>
       <div className={`wrap ${styles.bottom}`}>
         <p className="mono muted">{fmt(dict.footer.rights, { year, name: settings.companyName })}</p>
-        <Link href="/admin" className={`mono ${styles.admin}`}>
-          {dict.footer.admin}
-        </Link>
       </div>
     </footer>
   )

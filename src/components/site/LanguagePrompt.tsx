@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { LogoMark } from '@/components/brand/Logo'
 import { LANG_COOKIE, localePath, stripLocale } from '@/lib/i18n'
 import type { Locale } from '@/lib/data/types'
@@ -12,37 +12,39 @@ interface Props {
   companyName: string
 }
 
-function hasLangCookie() {
-  return document.cookie.split(';').some((c) => c.trim().startsWith(`${LANG_COOKIE}=`))
-}
+const JUST_CHOSEN = 'jacinto-language-just-chosen'
 
 function setLangCookie(value: Locale) {
   document.cookie = `${LANG_COOKIE}=${value}; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax`
 }
 
-function subscribe() {
-  return () => undefined
-}
-
-function needsPrompt() {
-  return !hasLangCookie() && !navigator.userAgent.includes('Lighthouse')
-}
-
 export function LanguagePrompt({ locale, companyName }: Props) {
-  const [dismissed, setDismissed] = useState(false)
-  const wanted = useSyncExternalStore(subscribe, needsPrompt, () => false)
-  const visible = wanted && !dismissed
+  const [visible, setVisible] = useState(false)
   const dialogRef = useRef<HTMLDialogElement>(null)
   const pathname = usePathname()
   const { path } = stripLocale(pathname)
 
   useEffect(() => {
-    const dialog = dialogRef.current
-    if (!dialog) return
-    if (visible && !dialog.open) {
-      dialog.showModal()
-      requestAnimationFrame(() => dialog.classList.add(styles.open))
+    if (navigator.userAgent.includes('Lighthouse')) return
+    const justChosen = sessionStorage.getItem(JUST_CHOSEN) === '1'
+    if (justChosen) {
+      sessionStorage.removeItem(JUST_CHOSEN)
+      return
     }
+    setVisible(true)
+
+    const onPageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) setVisible(true)
+    }
+    window.addEventListener('pageshow', onPageShow)
+    return () => window.removeEventListener('pageshow', onPageShow)
+  }, [])
+
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (!dialog || !visible || dialog.open) return
+    dialog.showModal()
+    requestAnimationFrame(() => dialog.classList.add(styles.open))
   }, [visible])
 
   const dismiss = (choice: Locale) => {
@@ -51,17 +53,18 @@ export function LanguagePrompt({ locale, companyName }: Props) {
     dialog?.classList.remove(styles.open)
     window.setTimeout(() => {
       if (dialog?.open) dialog.close()
-      setDismissed(true)
+      setVisible(false)
     }, 250)
   }
 
   const choose = (choice: Locale, e: React.MouseEvent<HTMLAnchorElement>) => {
+    setLangCookie(choice)
     if (choice === locale) {
       e.preventDefault()
       dismiss(choice)
-    } else {
-      setLangCookie(choice)
+      return
     }
+    sessionStorage.setItem(JUST_CHOSEN, '1')
   }
 
   if (!visible) return null

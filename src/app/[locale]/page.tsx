@@ -25,7 +25,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   if (!isLocale(locale)) notFound()
   const dict = getDictionary(locale)
   const repo = getPublicRepo()
-  const [settings, marked, all] = await Promise.all([repo.getSettings(), repo.listFeaturedProjects(6), repo.listPublishedProjects()])
+  const [settings, markedRaw, allRaw] = await Promise.all([repo.getSettings(), repo.listFeaturedProjects(6), repo.listPublishedProjects()])
+  const byDisplayOrder = <T extends { displayOrder: number; createdAt: string }>(items: T[]) =>
+    [...items].sort((a, b) => a.displayOrder - b.displayOrder || b.createdAt.localeCompare(a.createdAt))
+  const all = byDisplayOrder(allRaw)
+  const marked = byDisplayOrder(markedRaw)
   const featured = marked.length > 0 ? marked : all.slice(0, 6)
 
   const heroFromSettings = settings.heroImageId ? await repo.getImageById(settings.heroImageId) : null

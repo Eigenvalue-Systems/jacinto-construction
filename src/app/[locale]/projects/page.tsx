@@ -4,22 +4,22 @@ import { notFound } from 'next/navigation'
 import { ProjectIndex, type IndexItem } from '@/components/site/ProjectIndex'
 import { Reveal } from '@/components/site/Reveal'
 import { getPublicRepo } from '@/lib/data'
-import type { Locale } from '@/lib/data/types'
+import { PROJECT_TYPES, type Locale, type ProjectType } from '@/lib/data/types'
 import { getDictionary, isLocale, localePath, plural } from '@/lib/i18n'
+import { projectTypeLabel } from '@/lib/projectTypes'
 import { pageAlternates } from '@/lib/seo'
 import { coverOf, localizedProject } from '@/lib/view'
 import styles from './projects.module.css'
 
 type Search = Record<string, string | string[] | undefined>
 
-function parseYear(value: string | string[] | undefined): number | undefined {
-  const v = Array.isArray(value) ? value[0] : value
-  const n = Number(v)
-  return Number.isInteger(n) && n > 1900 && n < 2200 ? n : undefined
+function parseCategory(value: string | string[] | undefined): ProjectType | undefined {
+  const raw = Array.isArray(value) ? value[0] : value
+  return raw && PROJECT_TYPES.includes(raw as ProjectType) ? (raw as ProjectType) : undefined
 }
 
-function filterHref(locale: Locale, year?: number) {
-  return `${localePath(locale, '/projects')}${year ? `?year=${year}` : ''}`
+function filterHref(locale: Locale, category?: ProjectType) {
+  return `${localePath(locale, '/projects')}${category ? `?category=${category}` : ''}`
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const dict = getDictionary(locale)
   return {
     title: dict.projects.label,
-    description: dict.projects.intro,
+    description: locale === 'es' ? 'Cocinas, baños, interiores, exteriores y trabajo especial de Jacinto Construction.' : 'Kitchens, bathrooms, interior, exterior and custom work by Jacinto Construction.',
     alternates: pageAlternates('/projects', locale),
   }
 }
@@ -37,10 +37,12 @@ export default async function ProjectsPage({ params, searchParams }: { params: P
   const { locale } = await params
   if (!isLocale(locale)) notFound()
   const search = await searchParams
-  const year = parseYear(search.year)
+  const category = parseCategory(search.category)
   const dict = getDictionary(locale)
   const repo = getPublicRepo()
-  const [projects, years] = await Promise.all([repo.listPublishedProjects({ year }), repo.listPublishedYears()])
+  const allProjects = (await repo.listPublishedProjects()).sort((a, b) => a.displayOrder - b.displayOrder || b.createdAt.localeCompare(a.createdAt))
+  const categories = PROJECT_TYPES.filter((type) => allProjects.some((project) => project.projectType === type))
+  const projects = category ? allProjects.filter((project) => project.projectType === category) : allProjects
 
   const items: IndexItem[] = projects.map((project, i) => {
     const cover = coverOf(project)
@@ -51,11 +53,17 @@ export default async function ProjectsPage({ params, searchParams }: { params: P
       name: p.name,
       href: localePath(locale, `/projects/${project.slug}`),
       location: p.location,
-      year: project.year,
+      category: projectTypeLabel(project.projectType, locale, 'singular'),
       isDemo: project.isDemo,
       image: cover ? { urls: repo.imageUrls(cover), alt: cover.altText || p.name, width: cover.width, height: cover.height } : null,
     }
   })
+
+  const intro = locale === 'es'
+    ? 'Vea el trabajo por tipo. Cada proyecto muestra el proceso y el resultado final.'
+    : 'Browse the work by type. Each project shows the process and the finished result.'
+  const filterLabel = locale === 'es' ? 'Tipo de trabajo' : 'Type of work'
+  const emptyAction = locale === 'es' ? 'Elija otro tipo o vea todos los proyectos.' : 'Choose another type or view all projects.'
 
   return (
     <section className={`section-tight ${styles.page}`}>
@@ -68,24 +76,24 @@ export default async function ProjectsPage({ params, searchParams }: { params: P
             {dict.projects.title}
           </Reveal>
           <Reveal as="p" className={`reflective ${styles.intro}`} index={2}>
-            {dict.projects.intro}
+            {intro}
           </Reveal>
         </div>
 
-        {years.length > 0 ? (
+        {categories.length > 1 ? (
           <Reveal className={styles.filters} index={3}>
-            <nav aria-label={dict.projects.filterYear} className={styles.filterRow}>
-              <span className={`mono ${styles.filterLabel}`}>{dict.projects.filterYear}</span>
+            <nav aria-label={filterLabel} className={styles.filterRow}>
+              <span className={`mono ${styles.filterLabel}`}>{filterLabel}</span>
               <ul className={styles.filterList}>
                 <li>
-                  <Link href={filterHref(locale)} className={styles.filter} aria-current={!year ? 'true' : undefined}>
+                  <Link href={filterHref(locale)} className={styles.filter} aria-current={!category ? 'true' : undefined}>
                     {dict.projects.all}
                   </Link>
                 </li>
-                {years.map((y) => (
-                  <li key={y}>
-                    <Link href={filterHref(locale, y)} className={styles.filter} aria-current={year === y ? 'true' : undefined}>
-                      {y}
+                {categories.map((type) => (
+                  <li key={type}>
+                    <Link href={filterHref(locale, type)} className={styles.filter} aria-current={category === type ? 'true' : undefined}>
+                      {projectTypeLabel(type, locale, 'filter')}
                     </Link>
                   </li>
                 ))}
@@ -97,7 +105,7 @@ export default async function ProjectsPage({ params, searchParams }: { params: P
         {items.length === 0 ? (
           <div className={styles.empty}>
             <p className="title-md">{dict.projects.empty}</p>
-            <p className="reflective">{dict.projects.emptyAction}</p>
+            <p className="reflective">{emptyAction}</p>
             <Link href={localePath(locale, '/projects')} className="btn btn-outline">
               {dict.projects.viewAll}
             </Link>

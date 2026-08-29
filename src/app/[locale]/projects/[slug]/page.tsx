@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { ProjectView } from '@/components/site/project/ProjectView'
 import { getPublicRepo } from '@/lib/data'
 import { getDictionary, isLocale, locales } from '@/lib/i18n'
+import { projectTypeLabel } from '@/lib/projectTypes'
 import { breadcrumbJsonLd, pageAlternates } from '@/lib/seo'
 import { coverOf, localizedProject, projectHref } from '@/lib/view'
 
@@ -27,7 +28,9 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (!project) return {}
   const p = localizedProject(project, locale)
   const cover = coverOf(project)
-  const description = `${p.shortDescription} ${project.location}, ${project.year}.`.trim()
+  const pieces = [p.shortDescription, p.location, project.projectType ? projectTypeLabel(project.projectType, locale) : null]
+  if (Number.isInteger(project.year) && project.year > 1900) pieces.push(String(project.year))
+  const description = pieces.filter(Boolean).join(' · ')
   return {
     title: p.name,
     description,
@@ -45,8 +48,9 @@ export default async function ProjectPage({ params }: { params: Params }) {
   const { locale, slug } = await params
   if (!isLocale(locale)) notFound()
   const repo = getPublicRepo()
-  const [project, settings, all] = await Promise.all([repo.getPublishedProjectBySlug(slug), repo.getSettings(), repo.listPublishedProjects()])
+  const [project, settings, allRaw] = await Promise.all([repo.getPublishedProjectBySlug(slug), repo.getSettings(), repo.listPublishedProjects()])
   if (!project) notFound()
+  const all = [...allRaw].sort((a, b) => a.displayOrder - b.displayOrder || b.createdAt.localeCompare(a.createdAt))
   const dict = getDictionary(locale)
   const position = all.findIndex((p) => p.id === project.id)
   const previous = position > 0 ? all[position - 1] : null

@@ -10,7 +10,7 @@ import { getAdminRepo } from '@/lib/data'
 export default async function EditProjectPage({ params }: { params: Promise<{ id: string }> }) {
   await requireAdmin()
   const { id } = await params
-  const { dict } = await adminDictionary()
+  const { locale, dict } = await adminDictionary()
   const repo = await getAdminRepo()
   const project = await repo.getProjectById(id)
   if (!project) notFound()
@@ -48,6 +48,7 @@ export default async function EditProjectPage({ params }: { params: Promise<{ id
 
       <ProjectEditor
         project={project}
+        locale={locale}
         strings={t}
         photos={
           <>

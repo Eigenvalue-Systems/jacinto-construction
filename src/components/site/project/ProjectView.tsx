@@ -4,6 +4,7 @@ import { Reveal } from '@/components/site/Reveal'
 import { Gallery, type GalleryImage } from '@/components/site/project/Gallery'
 import type { Locale, Project, ProjectImage, Repository, SiteSettings } from '@/lib/data/types'
 import { localePath, type Dictionary } from '@/lib/i18n'
+import { projectTypeFieldLabel, projectTypeLabel } from '@/lib/projectTypes'
 import { beforeAfterOf, coverOf, galleryOf, localizedProject, localizedSettings, projectHref } from '@/lib/view'
 import styles from './ProjectView.module.css'
 
@@ -36,6 +37,8 @@ export function ProjectView({ locale, dict, project, settings, repo, previous, n
   const pairs = beforeAfterOf(project)
   const galleryImages = gallery.map((i) => toGalleryImage(repo, i, `${p.name}, ${dict.project.photoLabel}`))
   const [statement, ...rest] = p.paragraphs
+  const hasYear = Number.isInteger(project.year) && project.year > 1900
+  const category = projectTypeLabel(project.projectType, locale)
   const lightboxStrings = {
     close: dict.lightbox.close,
     previous: dict.lightbox.previous,
@@ -53,7 +56,7 @@ export function ProjectView({ locale, dict, project, settings, repo, previous, n
             {dict.projects.label}
           </Link>
           <span aria-hidden="true"> / </span>
-          {project.year}
+          {category}
           {project.isDemo ? <span className={styles.sample}>{dict.common.sample}</span> : null}
         </Reveal>
         <Reveal as="h1" className={`section-title ${styles.title}`} index={1}>
@@ -66,10 +69,18 @@ export function ProjectView({ locale, dict, project, settings, repo, previous, n
               <dd>{p.location}</dd>
             </div>
           ) : null}
-          <div>
-            <dt className="eyebrow">{dict.project.year}</dt>
-            <dd>{project.year}</dd>
-          </div>
+          {project.projectType ? (
+            <div>
+              <dt className="eyebrow">{projectTypeFieldLabel(locale)}</dt>
+              <dd>{category}</dd>
+            </div>
+          ) : null}
+          {hasYear ? (
+            <div>
+              <dt className="eyebrow">{dict.project.year}</dt>
+              <dd>{project.year}</dd>
+            </div>
+          ) : null}
           {p.value ? (
             <div>
               <dt className="eyebrow">{dict.project.value}</dt>
@@ -185,6 +196,9 @@ export function ProjectView({ locale, dict, project, settings, repo, previous, n
         <div className={styles.ctaActions}>
           <a href={s.phoneHref} className="btn btn-ink">
             {dict.nav.call} {settings.phone}
+          </a>
+          <a href={s.smsHref} className="btn btn-outline">
+            {locale === 'es' ? 'Mandar texto' : 'Text'}
           </a>
           <Link href={localePath(locale, '/contact')} className="btn btn-outline">
             {dict.home.contactMessage}

@@ -1,6 +1,6 @@
 export type Locale = 'en' | 'es'
 
-export const PROJECT_TYPES = ['residential', 'commercial', 'renovation', 'other'] as const
+export const PROJECT_TYPES = ['kitchen', 'bathroom', 'interior', 'exterior', 'commercial', 'custom', 'other'] as const
 export type ProjectType = (typeof PROJECT_TYPES)[number]
 
 export const IMAGE_GROUPS = ['gallery', 'before', 'after'] as const

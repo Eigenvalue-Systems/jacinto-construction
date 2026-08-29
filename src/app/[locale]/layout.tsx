@@ -69,6 +69,9 @@ export default async function LocaleLayout({ children, params }: { children: Rea
           strings={dict.nav}
           phone={settings.phone}
           phoneHref={s.phoneHref}
+          smsHref={s.smsHref}
+          email={settings.email}
+          emailHref={s.emailHref}
           location={settings.location}
           companyName={settings.companyName}
           logoUrl={logoUrl}

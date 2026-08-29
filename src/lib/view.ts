@@ -38,6 +38,7 @@ export function localizedProject(project: Project, locale: Locale) {
 }
 
 export function localizedSettings(settings: SiteSettings, locale: Locale) {
+  const phone = phoneToE164(settings.phone)
   return {
     serviceArea: pick(locale, settings.serviceArea, settings.serviceAreaEs),
     homepageHeadline: pick(locale, settings.homepageHeadline, settings.homepageHeadlineEs),
@@ -47,7 +48,8 @@ export function localizedSettings(settings: SiteSettings, locale: Locale) {
     services: splitLines(pick(locale, settings.servicesList, settings.servicesListEs)),
     contactCopy: pick(locale, settings.contactCopy, settings.contactCopyEs),
     metaDescription: pick(locale, settings.defaultMetaDescription, settings.defaultMetaDescriptionEs),
-    phoneHref: `tel:${phoneToE164(settings.phone)}`,
+    phoneHref: `tel:${phone}`,
+    smsHref: `sms:${phone}`,
     emailHref: `mailto:${settings.email}`,
   }
 }

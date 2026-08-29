@@ -28,6 +28,9 @@ interface Props {
   strings: NavStrings
   phone: string
   phoneHref: string
+  smsHref: string
+  email: string
+  emailHref: string
   location: string
   companyName: string
   logoUrl: string | null
@@ -35,13 +38,15 @@ interface Props {
 
 const REDUCED = '(prefers-reduced-motion: reduce)'
 
-export function SiteHeader({ locale, strings, phone, phoneHref, location, companyName, logoUrl }: Props) {
+export function SiteHeader({ locale, strings, phone, phoneHref, smsHref, email, emailHref, location, companyName, logoUrl }: Props) {
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const dialogRef = useRef<HTMLDialogElement>(null)
   const openerRef = useRef<HTMLButtonElement>(null)
   const { path } = stripLocale(pathname)
+  const textLabel = locale === 'es' ? 'Texto' : 'Text'
+  const emailLabel = locale === 'es' ? 'Correo' : 'Email'
 
   useEffect(() => {
     let ticking = false
@@ -175,6 +180,18 @@ export function SiteHeader({ locale, strings, phone, phoneHref, location, compan
         </div>
       </header>
 
+      <div className={styles.mobileDock} aria-label={locale === 'es' ? 'Contacto rápido' : 'Quick contact'}>
+        <a href={phoneHref} className={styles.dockPrimary} aria-label={`${strings.call} ${phone}`}>
+          <span className={styles.dockLabel}>{strings.call}</span>
+        </a>
+        <a href={smsHref} aria-label={`${textLabel} ${phone}`}>
+          <span className={styles.dockLabel}>{textLabel}</span>
+        </a>
+        <a href={emailHref} aria-label={`${emailLabel} ${email}`}>
+          <span className={styles.dockLabel}>{emailLabel}</span>
+        </a>
+      </div>
+
       <dialog ref={dialogRef} id="site-menu" className={styles.menu} aria-label={strings.menu}>
         <div className={styles.menuPanel}>
           <div className={styles.menuTop}>
@@ -200,9 +217,13 @@ export function SiteHeader({ locale, strings, phone, phoneHref, location, compan
             ))}
           </ul>
           <div className={styles.menuFoot}>
-            <a href={phoneHref} className={styles.menuPhone}>
-              {phone}
-            </a>
+            <div className={styles.menuContact}>
+              <a href={phoneHref} className={styles.menuPhone}>
+                {phone}
+              </a>
+              <a href={smsHref} className={styles.menuUtility}>{textLabel}</a>
+              <a href={emailHref} className={styles.menuUtility}>{email}</a>
+            </div>
             <p className={`eyebrow ${styles.menuLocation}`}>{location}</p>
             <div className={styles.menuLang}>
               <a href={`${localePath('en', path)}?lang=en`} lang="en" aria-current={locale === 'en' ? 'true' : undefined}>

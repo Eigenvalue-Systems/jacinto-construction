@@ -1,9 +1,10 @@
 import demoProjects from '../../../database/seed/demo-projects.json'
 import defaultSettings from '../../../database/seed/default-settings.json'
-import type { ImageGroup, Project, ProjectImage, SiteSettings, SocialLink } from './types'
+import type { ImageGroup, Project, ProjectImage, ProjectType, SiteSettings, SocialLink } from './types'
 import { makeExcerpt } from './util'
 
 const SEED_TIMESTAMP = '2025-01-01T00:00:00.000Z'
+const DEMO_TYPES: ProjectType[] = ['exterior', 'kitchen', 'commercial', 'bathroom', 'interior', 'custom']
 
 interface SeedImage {
   id: string
@@ -37,7 +38,7 @@ interface SeedProject {
 }
 
 export function getSeedProjects(): Project[] {
-  return (demoProjects as SeedProject[]).map((s) => {
+  return (demoProjects as SeedProject[]).map((s, projectIndex) => {
     const images: ProjectImage[] = s.images.map((img, i) => ({
       id: img.id,
       projectId: s.id,
@@ -61,7 +62,7 @@ export function getSeedProjects(): Project[] {
       location: s.location,
       locationEs: s.locationEs,
       projectValue: s.projectValue,
-      projectType: null,
+      projectType: DEMO_TYPES[projectIndex] ?? 'other',
       description: s.description,
       descriptionEs: s.descriptionEs,
       shortDescription: makeExcerpt(s.description),

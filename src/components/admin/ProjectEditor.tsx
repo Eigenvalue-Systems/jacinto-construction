@@ -3,8 +3,9 @@
 import { useActionState, useEffect, useState, type ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import { saveProject, type FormState } from '@/app/admin/actions'
-import type { Project } from '@/lib/data/types'
+import { PROJECT_TYPES, type Locale, type Project } from '@/lib/data/types'
 import { slugify } from '@/lib/data/util'
+import { projectTypeFieldLabel, projectTypeLabel, yearNotListedLabel } from '@/lib/projectTypes'
 
 interface EditorStrings {
   basics: string
@@ -54,6 +55,7 @@ interface EditorStrings {
 
 interface Props {
   project: Project
+  locale: Locale
   strings: EditorStrings
   photos: ReactNode
 }
@@ -68,11 +70,12 @@ function yearOptions() {
   return years
 }
 
-export function ProjectEditor({ project, strings, photos }: Props) {
+export function ProjectEditor({ project, locale, strings, photos }: Props) {
   const [state, action, pending] = useActionState(saveProject, idle)
   const [slug, setSlug] = useState(project.slug)
   const [slugTouched, setSlugTouched] = useState(project.published || project.slug !== slugify(project.name))
   const router = useRouter()
+  const runtimeYear = project.year as number | null
 
   useEffect(() => {
     if (state.status === 'ok') router.refresh()
@@ -122,8 +125,21 @@ export function ProjectEditor({ project, strings, photos }: Props) {
         </div>
         <div className="admin-grid admin-grid-2">
           <div className="field">
-            <label htmlFor="p-year">{strings.year}</label>
-            <select id="p-year" name="year" defaultValue={project.year} required>
+            <label htmlFor="p-type">{projectTypeFieldLabel(locale)}</label>
+            <select id="p-type" name="projectType" defaultValue={project.projectType ?? 'other'}>
+              {PROJECT_TYPES.map((type) => (
+                <option key={type} value={type}>
+                  {projectTypeLabel(type, locale, 'filter')}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="field">
+            <label htmlFor="p-year">
+              {strings.year} <span className="muted">({strings.optional})</span>
+            </label>
+            <select id="p-year" name="year" defaultValue={runtimeYear ?? ''}>
+              <option value="">{yearNotListedLabel(locale)}</option>
               {yearOptions().map((y) => (
                 <option key={y} value={y}>
                   {y}
@@ -132,14 +148,14 @@ export function ProjectEditor({ project, strings, photos }: Props) {
             </select>
             {fieldError('year') ? <p className="field-error">{fieldError('year')}</p> : null}
           </div>
-          <div className="field">
-            <label htmlFor="p-value">
-              {strings.value} <span className="muted">({strings.optional})</span>
-            </label>
-            <input id="p-value" name="projectValue" type="text" inputMode="numeric" defaultValue={project.projectValue ?? ''} maxLength={40} placeholder="185000" />
-            <p className="field-hint">{strings.valueHint}</p>
-            {fieldError('projectValue') ? <p className="field-error">{fieldError('projectValue')}</p> : null}
-          </div>
+        </div>
+        <div className="field">
+          <label htmlFor="p-value">
+            {strings.value} <span className="muted">({strings.optional})</span>
+          </label>
+          <input id="p-value" name="projectValue" type="text" inputMode="numeric" defaultValue={project.projectValue ?? ''} maxLength={40} placeholder="185000" />
+          <p className="field-hint">{strings.valueHint}</p>
+          {fieldError('projectValue') ? <p className="field-error">{fieldError('projectValue')}</p> : null}
         </div>
         <div className="field">
           <label htmlFor="p-location">{strings.location}</label>

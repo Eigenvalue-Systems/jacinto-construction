@@ -3,6 +3,7 @@ import { Picture } from '@/components/site/Picture'
 import { Reveal } from '@/components/site/Reveal'
 import type { ImageUrls, Locale, Project, ProjectImage, Repository, SiteSettings } from '@/lib/data/types'
 import { localePath, type Dictionary } from '@/lib/i18n'
+import { projectTypeLabel } from '@/lib/projectTypes'
 import { coverOf, localizedProject, localizedSettings, projectHref } from '@/lib/view'
 import styles from './Home.module.css'
 
@@ -69,8 +70,12 @@ export function Hero({ locale, dict, settings, image, project }: HeroProps) {
                 <span className="eyebrow-ink">{dict.home.heroMeta}</span>
                 <span aria-hidden="true"> / </span>
                 {proj.name}
-                <span aria-hidden="true"> / </span>
-                {project.year}
+                {project.projectType ? (
+                  <>
+                    <span aria-hidden="true"> / </span>
+                    {projectTypeLabel(project.projectType, locale)}
+                  </>
+                ) : null}
               </span>
             </Link>
           </Reveal>
@@ -105,6 +110,8 @@ export function SelectedWork({ locale, dict, projects, repo }: SelectedProps) {
             const cover = coverOf(project)
             const p = localizedProject(project, locale)
             const number = String(i + 1).padStart(2, '0')
+            const year = Number.isInteger(project.year) && project.year > 1900 ? String(project.year) : null
+            const meta = [p.location, project.projectType ? projectTypeLabel(project.projectType, locale) : null, year].filter(Boolean).join(' · ')
             return (
               <li key={project.id} className={`${styles.module} ${i % 2 === 1 ? styles.moduleFlip : ''}`}>
                 <Reveal className={styles.moduleMedia}>
@@ -134,9 +141,7 @@ export function SelectedWork({ locale, dict, projects, repo }: SelectedProps) {
                       {p.name}
                     </Link>
                   </h3>
-                  <p className={`eyebrow ${styles.moduleMeta}`}>
-                    {p.location} <span aria-hidden="true">·</span> {project.year}
-                  </p>
+                  {meta ? <p className={`eyebrow ${styles.moduleMeta}`}>{meta}</p> : null}
                   <p className={`reflective ${styles.moduleDesc}`}>{p.shortDescription}</p>
                   <Link href={projectHref(locale, project.slug)} className={`link-arrow ${styles.moduleMore}`}>
                     {dict.projects.viewProject} <span className="arrow" aria-hidden="true">→</span>
@@ -160,6 +165,7 @@ interface IndexProps {
 
 export function IndexPreview({ locale, dict, projects, total }: IndexProps) {
   if (projects.length === 0) return null
+  const intro = locale === 'es' ? 'Cocinas, baños, interiores, exteriores y trabajo especial, todo en un solo lugar.' : 'Kitchens, bathrooms, interior, exterior and custom work, all in one place.'
   return (
     <section className={`section ${styles.index}`} aria-labelledby="index-title">
       <div className="wrap">
@@ -173,7 +179,7 @@ export function IndexPreview({ locale, dict, projects, total }: IndexProps) {
             </Reveal>
           </div>
           <Reveal as="p" className={`reflective ${styles.indexIntro}`} index={2}>
-            {dict.home.indexIntro}
+            {intro}
           </Reveal>
         </div>
         <Reveal as="ol" className={styles.rows} index={2}>
@@ -185,7 +191,7 @@ export function IndexPreview({ locale, dict, projects, total }: IndexProps) {
                   <span className={`mono ${styles.rowNum}`}>{String(i + 1).padStart(2, '0')}</span>
                   <span className={styles.rowName}>{p.name}</span>
                   <span className={`mono ${styles.rowLocation}`}>{p.location}</span>
-                  <span className={`mono ${styles.rowYear}`}>{project.year}</span>
+                  <span className={`mono ${styles.rowYear}`}>{projectTypeLabel(project.projectType, locale)}</span>
                 </Link>
               </li>
             )

@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { requireAdmin } from '@/lib/admin/auth'
 import { dataMode, getAdminRepo } from '@/lib/data'
-import { IMAGE_GROUPS, type ImageGroup, type ProjectInput, type SocialLink } from '@/lib/data/types'
+import { IMAGE_GROUPS, PROJECT_TYPES, type ImageGroup, type ProjectInput, type ProjectType, type SocialLink } from '@/lib/data/types'
 import { makeExcerpt, parseMoney, slugify } from '@/lib/data/util'
 import { isEmailAllowed } from '@/lib/supabase/env'
 import { createServerSupabase } from '@/lib/supabase/server'
@@ -100,7 +100,7 @@ export async function createProject(_prev: FormState, formData: FormData): Promi
     location: '',
     locationEs: null,
     projectValue: null,
-    projectType: null,
+    projectType: 'other',
     description: '',
     descriptionEs: null,
     shortDescription: '',
@@ -126,8 +126,13 @@ export async function saveProject(_prev: FormState, formData: FormData): Promise
 
   const name = text(formData, 'name', 160)
   if (!name) return fail('nameRequired', { name: 'nameRequired' })
-  const year = Number(text(formData, 'year', 4))
-  if (!Number.isInteger(year) || year < 1900 || year > 2100) return fail('yearInvalid', { year: 'yearInvalid' })
+
+  const yearRaw = text(formData, 'year', 4)
+  const year = yearRaw ? Number(yearRaw) : null
+  if (year !== null && (!Number.isInteger(year) || year < 1900 || year > 2100)) return fail('yearInvalid', { year: 'yearInvalid' })
+
+  const projectTypeRaw = text(formData, 'projectType', 30)
+  const projectType: ProjectType = PROJECT_TYPES.includes(projectTypeRaw as ProjectType) ? (projectTypeRaw as ProjectType) : 'other'
   const location = text(formData, 'location', 120)
   const description = text(formData, 'description', 8000)
   const valueRaw = text(formData, 'projectValue', 40)
@@ -152,10 +157,11 @@ export async function saveProject(_prev: FormState, formData: FormData): Promise
     name,
     nameEs: optional(formData, 'nameEs', 160),
     slug,
-    year,
+    year: (year as number) ?? (null as never),
     location,
     locationEs: optional(formData, 'locationEs', 120),
     projectValue,
+    projectType,
     description,
     descriptionEs,
     shortDescription: makeExcerpt(description),
@@ -200,13 +206,11 @@ export async function moveProject(formData: FormData) {
   const id = text(formData, 'id', 80)
   const direction = text(formData, 'direction', 5)
   const repo = await getAdminRepo()
-  const all = await repo.listAllProjects()
-  const current = all.find((p) => p.id === id)
-  if (!current) return
-  const group = all.filter((p) => p.year === current.year).map((p) => p.id)
+  const all = [...(await repo.listAllProjects())].sort((a, b) => a.displayOrder - b.displayOrder || b.createdAt.localeCompare(a.createdAt))
+  const group = all.map((p) => p.id)
   const index = group.indexOf(id)
   const target = direction === 'up' ? index - 1 : index + 1
-  if (target < 0 || target >= group.length) return
+  if (index < 0 || target < 0 || target >= group.length) return
   ;[group[index], group[target]] = [group[target], group[index]]
   await repo.reorderProjects(group)
   refreshSite()

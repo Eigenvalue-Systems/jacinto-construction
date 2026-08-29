@@ -28,6 +28,8 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
   const dict = getDictionary(locale)
   const settings = await getPublicRepo().getSettings()
   const s = localizedSettings(settings, locale)
+  const textLabel = locale === 'es' ? 'Mandar texto' : 'Text'
+  const emailLabel = locale === 'es' ? 'Enviar correo' : 'Email'
 
   return (
     <section className={`section-tight ${styles.page}`}>
@@ -44,24 +46,26 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
           </Reveal>
         </div>
 
+        <Reveal className={styles.quickActions} index={2}>
+          <a href={s.phoneHref} className={`${styles.quickAction} ${styles.quickPrimary}`}>
+            <span className="eyebrow">{dict.contact.callTitle}</span>
+            <strong>{settings.phone}</strong>
+            <span className={styles.quickHint}>{locale === 'es' ? 'Tocar para llamar' : 'Tap to call'}</span>
+          </a>
+          <a href={s.smsHref} className={styles.quickAction}>
+            <span className="eyebrow">{textLabel}</span>
+            <strong>{settings.phone}</strong>
+            <span className={styles.quickHint}>SMS</span>
+          </a>
+          <a href={s.emailHref} className={styles.quickAction}>
+            <span className="eyebrow">{emailLabel}</span>
+            <strong className={styles.quickEmail}>{settings.email}</strong>
+            <span className={styles.quickHint}>{locale === 'es' ? 'Abrir correo' : 'Open email'}</span>
+          </a>
+        </Reveal>
+
         <div className={styles.grid}>
           <Reveal as="dl" className={styles.details} index={2}>
-            <div className={styles.detail}>
-              <dt className="eyebrow">{dict.contact.callTitle}</dt>
-              <dd>
-                <a href={s.phoneHref} className={styles.phone}>
-                  {settings.phone}
-                </a>
-              </dd>
-            </div>
-            <div className={styles.detail}>
-              <dt className="eyebrow">{dict.contact.emailTitle}</dt>
-              <dd>
-                <a href={s.emailHref} className={`link-line ${styles.email}`}>
-                  {settings.email}
-                </a>
-              </dd>
-            </div>
             <div className={styles.detail}>
               <dt className="eyebrow">{dict.contact.locationTitle}</dt>
               <dd className={styles.plain}>{settings.location}</dd>
@@ -69,6 +73,13 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
             <div className={styles.detail}>
               <dt className="eyebrow">{dict.contact.serviceTitle}</dt>
               <dd className={styles.plain}>{s.serviceArea}</dd>
+            </div>
+            <div className={styles.detail}>
+              <dt className="eyebrow">{locale === 'es' ? 'Contacto directo' : 'Direct contact'}</dt>
+              <dd className={styles.directLinks}>
+                <a href={s.phoneHref}>{settings.phone}</a>
+                <a href={s.emailHref}>{settings.email}</a>
+              </dd>
             </div>
           </Reveal>
 

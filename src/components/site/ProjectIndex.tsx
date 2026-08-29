@@ -12,7 +12,7 @@ export interface IndexItem {
   name: string
   href: string
   location: string
-  year: number
+  category: string
   isDemo: boolean
   image: { urls: ImageUrls; alt: string; width: number; height: number } | null
 }
@@ -46,6 +46,13 @@ export function ProjectIndex({ items, sampleLabel, viewLabel }: Props) {
     }
   }, [active, items])
 
+  useEffect(() => {
+    if (active >= items.length) {
+      setActive(0)
+      setLayers([{ key: Date.now(), index: 0 }])
+    }
+  }, [active, items.length])
+
   return (
     <div className={styles.index}>
       <ol className={styles.list}>
@@ -70,7 +77,7 @@ export function ProjectIndex({ items, sampleLabel, viewLabel }: Props) {
                   {item.isDemo ? <span className={`mono ${styles.sample}`}>{sampleLabel}</span> : null}
                 </span>
                 <span className={`mono ${styles.location}`}>{item.location}</span>
-                <span className={`mono ${styles.year}`}>{item.year}</span>
+                <span className={`mono ${styles.category}`}>{item.category}</span>
                 <span className={`mono ${styles.view}`} aria-hidden="true">
                   {viewLabel} →
                 </span>

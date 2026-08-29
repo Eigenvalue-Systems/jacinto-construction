@@ -51,17 +51,17 @@
   display: grid;
   grid-template-columns: 36px 1fr auto;
   grid-template-areas:
-    'num name year'
+    'num name category'
     'num meta meta';
   column-gap: 16px;
-  row-gap: 6px;
+  row-gap: 7px;
   align-items: baseline;
 }
 
 @media (min-width: 1024px) {
   .rowBody {
-    grid-template-columns: 40px 1fr 200px 56px;
-    grid-template-areas: 'num name location year';
+    grid-template-columns: 40px 1fr 200px 110px;
+    grid-template-areas: 'num name location category';
     padding: 20px 0;
     min-height: 64px;
     transition: padding-left 0.4s var(--ease);
@@ -104,10 +104,11 @@
   color: var(--ink-muted);
 }
 
-.year {
-  grid-area: year;
-  color: var(--ink-soft);
+.category {
+  grid-area: category;
+  color: var(--brick-deep);
   text-align: right;
+  white-space: nowrap;
 }
 
 .view {
