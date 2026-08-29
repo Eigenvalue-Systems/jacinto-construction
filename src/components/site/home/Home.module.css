@@ -95,6 +95,7 @@
   width: 100%;
   aspect-ratio: 4 / 5;
   max-height: min(78svh, 880px);
+  overflow: hidden;
 }
 
 @media (min-width: 1024px) {
@@ -105,6 +106,18 @@
 
 .heroImage img {
   height: 100%;
+  animation: heroDrift 18s ease-in-out infinite alternate;
+  transform-origin: 52% 50%;
+  will-change: transform;
+}
+
+@keyframes heroDrift {
+  from {
+    transform: scale(1.01) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.035) translate3d(0, -0.8%, 0);
+  }
 }
 
 .heroMeta {
@@ -410,6 +423,12 @@
   .datum {
     animation: none;
     transform: none;
+  }
+
+  .heroImage img {
+    animation: none;
+    transform: none;
+    will-change: auto;
   }
 
   .row,
