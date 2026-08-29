@@ -1,0 +1,420 @@
+.hero {
+  padding-top: clamp(28px, 5vw, 64px);
+  padding-bottom: clamp(48px, 7vw, 96px);
+}
+
+.heroHead {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2.5vw, 28px);
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+
+.heroTitle {
+  max-width: 14em;
+}
+
+.heroLine {
+  display: block;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(36px, 6vw, 64px);
+  align-items: end;
+}
+
+@media (min-width: 1024px) {
+  .heroGrid {
+    grid-template-columns: 5fr 7fr;
+    gap: clamp(40px, 5vw, 80px);
+  }
+}
+
+.heroText {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 3vw, 28px);
+}
+
+@media (min-width: 1024px) {
+  .heroText {
+    padding-bottom: 40px;
+  }
+}
+
+.heroIntro {
+  max-width: 30em;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+.datum {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .datum {
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1px;
+    height: 32px;
+    background: var(--brick);
+    transform-origin: bottom;
+    transform: scaleY(0);
+    animation: datum 1.2s var(--ease) 0.6s forwards;
+  }
+}
+
+@keyframes datum {
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.heroMedia {
+  min-width: 0;
+}
+
+.heroImageLink {
+  display: block;
+  color: inherit;
+}
+
+.heroImage {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  max-height: min(78svh, 880px);
+}
+
+@media (min-width: 1024px) {
+  .heroImage {
+    aspect-ratio: 3 / 2;
+  }
+}
+
+.heroImage img {
+  height: 100%;
+}
+
+.heroMeta {
+  display: block;
+  margin-top: 14px;
+}
+
+.sectionHead {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: clamp(36px, 5vw, 64px);
+}
+
+.modules {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(56px, 8vw, 120px);
+}
+
+.module {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(20px, 3vw, 32px);
+  align-items: end;
+}
+
+@media (min-width: 860px) {
+  .module {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap);
+  }
+
+  .moduleMedia {
+    grid-column: 1 / span 7;
+  }
+
+  .moduleText {
+    grid-column: 9 / span 4;
+  }
+
+  .moduleFlip .moduleMedia {
+    grid-column: 6 / span 7;
+    grid-row: 1;
+  }
+
+  .moduleFlip .moduleText {
+    grid-column: 1 / span 4;
+    grid-row: 1;
+  }
+}
+
+.moduleLink {
+  display: block;
+}
+
+.moduleImage {
+  display: block;
+  width: 100%;
+}
+
+.noImage {
+  background: var(--concrete);
+}
+
+.moduleText {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sampleTag {
+  margin-left: 14px;
+  color: var(--brick);
+}
+
+.moduleTitle {
+  margin-top: 4px;
+}
+
+.moduleTitleLink {
+  transition: color 0.3s var(--ease);
+}
+
+.moduleTitleLink:hover {
+  color: var(--brick-deep);
+}
+
+.moduleMeta {
+  color: var(--ink-soft);
+}
+
+.moduleDesc {
+  font-size: 18px;
+  margin-top: 4px;
+}
+
+.moduleMore {
+  margin-top: 8px;
+  font-size: 15px;
+}
+
+.index {
+  padding-top: 0;
+}
+
+.indexHead {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-items: end;
+}
+
+@media (min-width: 860px) {
+  .indexHead {
+    grid-template-columns: 7fr 5fr;
+    gap: var(--gap);
+  }
+
+  .indexHead > div {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+.indexIntro {
+  max-width: 28em;
+}
+
+.rows {
+  border-top: 1px solid var(--line-strong);
+}
+
+.rows li {
+  border-bottom: 1px solid var(--line);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  align-items: baseline;
+  gap: 16px;
+  padding: 16px 0;
+  min-height: 56px;
+  transition: padding-left 0.4s var(--ease);
+}
+
+@media (min-width: 860px) {
+  .row {
+    grid-template-columns: 48px 1fr 220px 64px;
+    padding: 18px 0;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .row:hover {
+    padding-left: 6px;
+  }
+
+  .row:hover .rowName {
+    color: var(--brick-deep);
+  }
+}
+
+.rowNum {
+  color: var(--ink-muted);
+}
+
+.rowName {
+  font-size: clamp(17px, 1.6vw, 20px);
+  font-weight: 560;
+  letter-spacing: -0.015em;
+  transition: color 0.3s var(--ease);
+}
+
+.rowLocation {
+  display: none;
+  color: var(--ink-muted);
+}
+
+@media (min-width: 860px) {
+  .rowLocation {
+    display: block;
+  }
+}
+
+.rowYear {
+  color: var(--ink-soft);
+  text-align: right;
+}
+
+.indexFoot {
+  margin-top: 28px;
+}
+
+.about {
+  background: var(--paper-warm);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.aboutGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .aboutGrid {
+    grid-template-columns: 6fr 6fr;
+  }
+
+  .aboutNoImage {
+    grid-template-columns: 9fr 3fr;
+  }
+}
+
+.aboutText {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.aboutIntro {
+  max-width: 24em;
+}
+
+.aboutImage {
+  display: block;
+  width: 100%;
+}
+
+.contact {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(36px, 6vw, 72px);
+  align-items: end;
+}
+
+@media (min-width: 900px) {
+  .contactGrid {
+    grid-template-columns: 7fr 5fr;
+  }
+}
+
+.contactEyebrow {
+  color: rgba(244, 240, 232, 0.55);
+}
+
+.contactTitle {
+  margin-top: 16px;
+  color: var(--paper);
+}
+
+.contactCopy {
+  margin-top: 20px;
+  color: rgba(244, 240, 232, 0.72);
+  max-width: 30em;
+}
+
+.contactActions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.contactPhone,
+.contactEmail {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--paper);
+  min-height: 44px;
+}
+
+.contactPhone {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.contactEmail {
+  font-family: var(--serif);
+  font-size: clamp(18px, 2vw, 22px);
+  word-break: break-all;
+}
+
+.contactPhone:hover,
+.contactEmail:hover {
+  color: var(--stone);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .datum {
+    animation: none;
+    transform: none;
+  }
+
+  .row,
+  .rowName,
+  .moduleTitleLink {
+    transition: none;
+  }
+}

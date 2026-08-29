@@ -1,0 +1,21 @@
+.wrap {
+  min-height: 60svh;
+  display: flex;
+  align-items: center;
+}
+
+.code {
+  color: var(--brick);
+}
+
+.title {
+  margin-top: 16px;
+  max-width: 14ch;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 36px;
+}

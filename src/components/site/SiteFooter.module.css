@@ -1,0 +1,94 @@
+.footer {
+  border-top: 1px solid var(--line-strong);
+  padding-top: clamp(48px, 7vw, 88px);
+  padding-bottom: calc(28px + env(safe-area-inset-bottom));
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+@media (min-width: 640px) {
+  .inner {
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 32px;
+  }
+}
+
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  width: fit-content;
+}
+
+.location {
+  margin-top: 8px;
+}
+
+.service {
+  font-family: var(--serif);
+  font-size: 17px;
+  color: var(--ink-soft);
+  max-width: 24em;
+}
+
+.colTitle {
+  margin-bottom: 18px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 15px;
+}
+
+.list a {
+  display: inline-block;
+  min-height: 28px;
+}
+
+.list a[aria-current='true'] {
+  color: var(--brick-deep);
+}
+
+.email {
+  word-break: break-all;
+}
+
+.bottom {
+  margin-top: clamp(40px, 6vw, 72px);
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.admin {
+  color: var(--ink-muted);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.admin:hover {
+  color: var(--ink);
+}
+
+.customLogo {
+  height: 34px;
+  width: auto;
+  max-width: 140px;
+}

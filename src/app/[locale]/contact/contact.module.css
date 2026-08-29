@@ -1,0 +1,76 @@
+.page {
+  padding-top: clamp(24px, 4vw, 56px);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: clamp(32px, 5vw, 64px);
+}
+
+.intro {
+  max-width: 30em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: 5fr 7fr;
+  }
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line-strong);
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.detail dd {
+  margin: 0;
+}
+
+.phone {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: clamp(28px, 3.4vw, 40px);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  transition: color 0.3s var(--ease);
+}
+
+.phone:hover {
+  color: var(--brick-deep);
+}
+
+.email {
+  font-family: var(--serif);
+  font-size: clamp(18px, 2vw, 22px);
+  word-break: break-all;
+}
+
+.plain {
+  font-family: var(--serif);
+  font-size: 19px;
+  color: var(--ink-soft);
+}
+
+.formCol {
+  min-width: 0;
+}

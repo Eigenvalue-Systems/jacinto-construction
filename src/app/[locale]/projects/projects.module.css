@@ -1,0 +1,88 @@
+.page {
+  padding-top: clamp(24px, 4vw, 56px);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+
+.intro {
+  max-width: 30em;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 0;
+  margin-bottom: clamp(32px, 5vw, 64px);
+}
+
+.filterRow {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.filterLabel {
+  color: var(--ink-muted);
+  min-width: 44px;
+}
+
+.filterList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 22px;
+}
+
+.filter {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  transition: color 0.3s var(--ease);
+}
+
+.filter::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 7px;
+  width: 100%;
+  height: 1px;
+  background: var(--brick);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease);
+}
+
+.filter:hover {
+  color: var(--ink);
+}
+
+.filter[aria-current='true'] {
+  color: var(--ink);
+}
+
+.filter[aria-current='true']::after {
+  transform: scaleX(1);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: clamp(32px, 6vw, 72px) 0;
+}

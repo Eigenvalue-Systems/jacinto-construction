@@ -1,0 +1,425 @@
+[
+  {
+    "id": "a1000000-0000-4000-8000-000000000001",
+    "name": "Two-Flat Masonry Restoration",
+    "nameEs": "Restauración de mampostería en un two-flat",
+    "slug": "two-flat-masonry-restoration",
+    "year": 2025,
+    "location": "South Chicago",
+    "locationEs": "South Chicago",
+    "projectValue": 48000,
+    "description": "Sample project. The front and side elevations were ground out and repointed with a mortar matched to the original color. Rusted steel lintels over six windows were replaced, the rear parapet was taken down to sound brick and rebuilt, and new limestone caps were set.\n\nWork was sequenced so the family could stay in the building. Scaffolding came down section by section as each elevation was finished.",
+    "descriptionEs": "Proyecto de muestra. Se removió el mortero de las fachadas frontal y lateral y se rejuntó con un mortero igualado al color original. Se cambiaron los dinteles de acero oxidados sobre seis ventanas, el parapeto trasero se desmontó hasta ladrillo sano y se reconstruyó, y se colocaron nuevas coronaciones de piedra caliza.\n\nEl trabajo se organizó para que la familia pudiera quedarse en el edificio. El andamio se retiró sección por sección conforme se terminaba cada fachada.",
+    "details": "Grind and repoint, front and side elevations\nSix steel lintels replaced\nRear parapet rebuilt with salvaged brick\nNew limestone caps\nThrough-wall flashing at the parapet",
+    "detailsEs": "Remoción de mortero y rejunteo en fachadas frontal y lateral\nSeis dinteles de acero reemplazados\nParapeto trasero reconstruido con ladrillo recuperado\nNuevas coronaciones de piedra caliza\nTapajuntas a través del muro en el parapeto",
+    "featured": true,
+    "published": true,
+    "displayOrder": 1,
+    "coverImageId": "b1000000-0000-4000-8000-000000000101",
+    "isDemo": true,
+    "images": [
+      {
+        "id": "b1000000-0000-4000-8000-000000000101",
+        "file": "sample-01-01.svg",
+        "width": 2400,
+        "height": 1600,
+        "group": "gallery",
+        "altText": "Sample placeholder, front elevation of a brick two-flat",
+        "caption": "Front elevation after repointing"
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000102",
+        "file": "sample-01-02.svg",
+        "width": 1600,
+        "height": 2000,
+        "group": "gallery",
+        "altText": "Sample placeholder, close view of new mortar joints",
+        "caption": "Mortar matched to the original"
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000103",
+        "file": "sample-01-03.svg",
+        "width": 1600,
+        "height": 2000,
+        "group": "gallery",
+        "altText": "Sample placeholder, replaced steel lintel above a window",
+        "caption": ""
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000104",
+        "file": "sample-01-04.svg",
+        "width": 2400,
+        "height": 1600,
+        "group": "gallery",
+        "altText": "Sample placeholder, rear parapet during rebuild",
+        "caption": "Parapet taken down to sound brick"
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000105",
+        "file": "sample-01-05.svg",
+        "width": 2000,
+        "height": 2000,
+        "group": "gallery",
+        "altText": "Sample placeholder, limestone cap detail",
+        "caption": ""
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000106",
+        "file": "sample-01-06.svg",
+        "width": 1600,
+        "height": 2000,
+        "group": "gallery",
+        "altText": "Sample placeholder, side elevation with scaffolding",
+        "caption": ""
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000107",
+        "file": "sample-01-07.svg",
+        "width": 2400,
+        "height": 1500,
+        "group": "gallery",
+        "altText": "Sample placeholder, finished rear wall",
+        "caption": "Rear wall, finished"
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000108",
+        "file": "sample-01-08.svg",
+        "width": 2400,
+        "height": 1600,
+        "group": "gallery",
+        "altText": "Sample placeholder, street view of the completed building",
+        "caption": ""
+      }
+    ]
+  },
+  {
+    "id": "a1000000-0000-4000-8000-000000000002",
+    "name": "Bungalow Kitchen and Rear Addition",
+    "nameEs": "Cocina y ampliación trasera en un bungalow",
+    "slug": "bungalow-kitchen-and-rear-addition",
+    "year": 2024,
+    "location": "South Side, Chicago",
+    "locationEs": "Lado sur, Chicago",
+    "projectValue": 185000,
+    "description": "Sample project. The old kitchen was opened into a new rear addition on a poured foundation. Framing, roof tie-in, rough plumbing and electrical, insulation, drywall, cabinets, tile and trim were coordinated on one schedule.\n\nThe before and after photos show the same wall from the same spot.",
+    "descriptionEs": "Proyecto de muestra. La cocina antigua se abrió hacia una nueva ampliación trasera sobre una cimentación colada. La estructura, la unión del techo, la plomería y electricidad en obra gris, el aislamiento, el tablaroca, los gabinetes, el azulejo y las molduras se coordinaron en un solo calendario.\n\nLas fotos de antes y después muestran la misma pared desde el mismo punto.",
+    "details": "Poured concrete foundation and slab\nWood framing and roof tie-in\nRough plumbing and electrical\nCabinets, quartz counters and tile\nNew rear door and two windows",
+    "detailsEs": "Cimentación y losa de concreto colado\nEstructura de madera y unión con el techo\nPlomería y electricidad en obra gris\nGabinetes, cubiertas de cuarzo y azulejo\nPuerta trasera nueva y dos ventanas",
+    "featured": true,
+    "published": true,
+    "displayOrder": 2,
+    "coverImageId": "b1000000-0000-4000-8000-000000000201",
+    "isDemo": true,
+    "images": [
+      {
+        "id": "b1000000-0000-4000-8000-000000000201",
+        "file": "sample-02-01.svg",
+        "width": 2400,
+        "height": 1600,
+        "group": "gallery",
+        "altText": "Sample placeholder, finished kitchen looking toward the addition",
+        "caption": "Kitchen looking into the addition"
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000202",
+        "file": "sample-02-02.svg",
+        "width": 1600,
+        "height": 2000,
+        "group": "gallery",
+        "altText": "Sample placeholder, cabinet and counter detail",
+        "caption": ""
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000203",
+        "file": "sample-02-03.svg",
+        "width": 1600,
+        "height": 2000,
+        "group": "gallery",
+        "altText": "Sample placeholder, addition framing before drywall",
+        "caption": "Framing before drywall"
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000204",
+        "file": "sample-02-04.svg",
+        "width": 2400,
+        "height": 1600,
+        "group": "gallery",
+        "altText": "Sample placeholder, rear of the house with the new addition",
+        "caption": ""
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000205",
+        "file": "sample-02-05.svg",
+        "width": 1600,
+        "height": 2000,
+        "group": "before",
+        "altText": "Sample placeholder, the original kitchen before work started",
+        "caption": "Before"
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000206",
+        "file": "sample-02-06.svg",
+        "width": 1600,
+        "height": 2000,
+        "group": "after",
+        "altText": "Sample placeholder, the same wall after the rebuild",
+        "caption": "After"
+      }
+    ]
+  },
+  {
+    "id": "a1000000-0000-4000-8000-000000000003",
+    "name": "Corner Storefront Build-Out",
+    "nameEs": "Adecuación de un local comercial en esquina",
+    "slug": "corner-storefront-build-out",
+    "year": 2024,
+    "location": "North Side, Chicago",
+    "locationEs": "Lado norte, Chicago",
+    "projectValue": null,
+    "description": "Sample project. Demolition of the old partitions, new steel studs and drywall, a level plywood subfloor over the original slab, an accessible restroom and a new storefront door. Finished in seven weeks to meet the tenant's opening date.",
+    "descriptionEs": "Proyecto de muestra. Demolición de las divisiones antiguas, nuevos postes de acero y tablaroca, un subpiso de triplay nivelado sobre la losa original, un baño accesible y una puerta nueva de fachada. Terminado en siete semanas para cumplir con la fecha de apertura del inquilino.",
+    "details": "Selective demolition\nSteel stud partitions and drywall\nLeveled plywood subfloor\nAccessible restroom\nNew storefront door and hardware",
+    "detailsEs": "Demolición selectiva\nDivisiones de postes de acero y tablaroca\nSubpiso de triplay nivelado\nBaño accesible\nPuerta de fachada nueva y herrajes",
+    "featured": true,
+    "published": true,
+    "displayOrder": 3,
+    "coverImageId": "b1000000-0000-4000-8000-000000000301",
+    "isDemo": true,
+    "images": [
+      {
+        "id": "b1000000-0000-4000-8000-000000000301",
+        "file": "sample-03-01.svg",
+        "width": 2400,
+        "height": 1500,
+        "group": "gallery",
+        "altText": "Sample placeholder, storefront interior after build-out",
+        "caption": ""
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000302",
+        "file": "sample-03-02.svg",
+        "width": 2400,
+        "height": 1600,
+        "group": "gallery",
+        "altText": "Sample placeholder, new partitions during framing",
+        "caption": "Steel stud partitions"
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000303",
+        "file": "sample-03-03.svg",
+        "width": 1600,
+        "height": 2000,
+        "group": "gallery",
+        "altText": "Sample placeholder, accessible restroom",
+        "caption": ""
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000304",
+        "file": "sample-03-04.svg",
+        "width": 1600,
+        "height": 2000,
+        "group": "gallery",
+        "altText": "Sample placeholder, new storefront door",
+        "caption": ""
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000305",
+        "file": "sample-03-05.svg",
+        "width": 2400,
+        "height": 1600,
+        "group": "gallery",
+        "altText": "Sample placeholder, exterior corner view",
+        "caption": "Corner view from the street"
+      }
+    ]
+  },
+  {
+    "id": "a1000000-0000-4000-8000-000000000004",
+    "name": "Basement Finish and Structural Repair",
+    "nameEs": "Acabado de sótano y reparación estructural",
+    "slug": "basement-finish-and-structural-repair",
+    "year": 2023,
+    "location": "South Chicago",
+    "locationEs": "South Chicago",
+    "projectValue": 62500,
+    "description": "Sample project. Temporary shoring, a new steel column on a poured footing and a sistered main beam brought the floor above back to level. The basement was then framed, insulated and finished, with a drop-in egress window added at the rear.",
+    "descriptionEs": "Proyecto de muestra. Apuntalamiento temporal, una columna de acero nueva sobre una zapata colada y una viga principal reforzada devolvieron el nivel al piso de arriba. Después el sótano se estructuró, se aisló y se terminó, con una ventana de salida de emergencia en la parte trasera.",
+    "details": "Temporary shoring and beam jacking\nSteel column on new footing\nSistered main beam\nFraming, insulation and drywall\nEgress window",
+    "detailsEs": "Apuntalamiento temporal y levantamiento de viga\nColumna de acero sobre zapata nueva\nViga principal reforzada\nEstructura, aislamiento y tablaroca\nVentana de salida de emergencia",
+    "featured": true,
+    "published": true,
+    "displayOrder": 4,
+    "coverImageId": "b1000000-0000-4000-8000-000000000401",
+    "isDemo": true,
+    "images": [
+      {
+        "id": "b1000000-0000-4000-8000-000000000401",
+        "file": "sample-04-01.svg",
+        "width": 2400,
+        "height": 1600,
+        "group": "gallery",
+        "altText": "Sample placeholder, finished basement family room",
+        "caption": ""
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000402",
+        "file": "sample-04-02.svg",
+        "width": 1600,
+        "height": 2000,
+        "group": "gallery",
+        "altText": "Sample placeholder, new steel column and sistered beam",
+        "caption": "Column on the new footing"
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000403",
+        "file": "sample-04-03.svg",
+        "width": 2400,
+        "height": 1600,
+        "group": "gallery",
+        "altText": "Sample placeholder, framing and insulation in progress",
+        "caption": ""
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000404",
+        "file": "sample-04-04.svg",
+        "width": 2000,
+        "height": 2000,
+        "group": "gallery",
+        "altText": "Sample placeholder, egress window well",
+        "caption": "Egress window at the rear"
+      }
+    ]
+  },
+  {
+    "id": "a1000000-0000-4000-8000-000000000005",
+    "name": "Detached Garage and Concrete Flatwork",
+    "nameEs": "Garaje independiente y losas de concreto",
+    "slug": "detached-garage-and-concrete-flatwork",
+    "year": 2022,
+    "location": "South Side, Chicago",
+    "locationEs": "Lado sur, Chicago",
+    "projectValue": 27500,
+    "description": "Sample project. Demolition of the old frame garage, a new reinforced slab, wood framing and siding, with the roofing and the overhead door handled by subcontractors on the same schedule. The apron and side walk were poured in the same week.",
+    "descriptionEs": "Proyecto de muestra. Demolición del garaje viejo de madera, losa nueva reforzada, estructura de madera y revestimiento, con el techo y la puerta de garaje a cargo de subcontratistas en el mismo calendario. La rampa y la banqueta lateral se colaron la misma semana.",
+    "details": "Demolition and haul away\nReinforced concrete slab\nFraming and siding\nRoofing and overhead door by subcontractors\nApron and side walk",
+    "detailsEs": "Demolición y retiro de escombro\nLosa de concreto reforzada\nEstructura y revestimiento\nTecho y puerta de garaje por subcontratistas\nRampa de acceso y banqueta lateral",
+    "featured": false,
+    "published": true,
+    "displayOrder": 5,
+    "coverImageId": "b1000000-0000-4000-8000-000000000501",
+    "isDemo": true,
+    "images": [
+      {
+        "id": "b1000000-0000-4000-8000-000000000501",
+        "file": "sample-05-01.svg",
+        "width": 2400,
+        "height": 1600,
+        "group": "gallery",
+        "altText": "Sample placeholder, finished garage from the alley",
+        "caption": ""
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000502",
+        "file": "sample-05-02.svg",
+        "width": 1600,
+        "height": 2000,
+        "group": "gallery",
+        "altText": "Sample placeholder, slab forms and rebar before the pour",
+        "caption": "Forms and rebar"
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000503",
+        "file": "sample-05-03.svg",
+        "width": 2400,
+        "height": 1600,
+        "group": "gallery",
+        "altText": "Sample placeholder, new apron and side walk",
+        "caption": ""
+      }
+    ]
+  },
+  {
+    "id": "a1000000-0000-4000-8000-000000000006",
+    "name": "New Single-Family Home",
+    "nameEs": "Casa unifamiliar nueva",
+    "slug": "new-single-family-home",
+    "year": 2021,
+    "location": "South Chicago",
+    "locationEs": "South Chicago",
+    "projectValue": null,
+    "description": "Sample project. Foundation, framing, siding, windows, insulation, drywall, flooring, trim, kitchen and baths, with roofing, plumbing, electrical and HVAC subcontracted and coordinated. One schedule from the first pour to the final walkthrough.",
+    "descriptionEs": "Proyecto de muestra. Cimentación, estructura, revestimiento, ventanas, aislamiento, tablaroca, pisos, molduras, cocina y baños, con el techo, la plomería, la electricidad y la climatización subcontratados y coordinados. Un solo calendario desde el primer colado hasta el recorrido final.",
+    "details": "Poured foundation\nWood framing\nRoofing, plumbing, electrical and HVAC by subcontractors\nWindows, siding, insulation and drywall\nFlooring, trim, kitchen and two baths",
+    "detailsEs": "Cimentación colada\nEstructura de madera\nTecho, plomería, electricidad y climatización por subcontratistas\nVentanas, revestimiento, aislamiento y tablaroca\nPisos, molduras, cocina y dos baños",
+    "featured": true,
+    "published": true,
+    "displayOrder": 6,
+    "coverImageId": "b1000000-0000-4000-8000-000000000601",
+    "isDemo": true,
+    "images": [
+      {
+        "id": "b1000000-0000-4000-8000-000000000601",
+        "file": "sample-06-01.svg",
+        "width": 2400,
+        "height": 1600,
+        "group": "gallery",
+        "altText": "Sample placeholder, front of the finished house",
+        "caption": ""
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000602",
+        "file": "sample-06-02.svg",
+        "width": 1600,
+        "height": 2000,
+        "group": "gallery",
+        "altText": "Sample placeholder, foundation walls",
+        "caption": "Foundation walls"
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000603",
+        "file": "sample-06-03.svg",
+        "width": 2400,
+        "height": 1600,
+        "group": "gallery",
+        "altText": "Sample placeholder, framing with the roof on",
+        "caption": ""
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000604",
+        "file": "sample-06-04.svg",
+        "width": 1600,
+        "height": 2000,
+        "group": "gallery",
+        "altText": "Sample placeholder, stair and trim detail",
+        "caption": ""
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000605",
+        "file": "sample-06-05.svg",
+        "width": 1600,
+        "height": 2000,
+        "group": "gallery",
+        "altText": "Sample placeholder, kitchen",
+        "caption": "Kitchen"
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000606",
+        "file": "sample-06-06.svg",
+        "width": 2400,
+        "height": 1500,
+        "group": "gallery",
+        "altText": "Sample placeholder, living room",
+        "caption": ""
+      },
+      {
+        "id": "b1000000-0000-4000-8000-000000000607",
+        "file": "sample-06-07.svg",
+        "width": 2400,
+        "height": 1600,
+        "group": "gallery",
+        "altText": "Sample placeholder, rear of the house",
+        "caption": ""
+      }
+    ]
+  }
+]
