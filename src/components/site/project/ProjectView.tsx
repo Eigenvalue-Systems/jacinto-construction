@@ -155,6 +155,7 @@ export function ProjectView({ locale, dict, project, settings, repo, previous, n
                     }}
                     beforeLabel={dict.project.before}
                     afterLabel={dict.project.after}
+                    hint={locale === 'es' ? 'Deslice para comparar' : 'Drag to compare'}
                     projectName={p.name}
                   />
                 ) : (
