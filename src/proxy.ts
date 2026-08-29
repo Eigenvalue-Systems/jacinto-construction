@@ -4,7 +4,7 @@ import { isEmailAllowed, isSupabaseConfigured } from '@/lib/supabase/env'
 import { updateSession } from '@/lib/supabase/proxy'
 
 const COOKIE = { path: '/', maxAge: 60 * 60 * 24 * 365, sameSite: 'lax' as const }
-const PUBLIC_ADMIN = ['/admin/login', '/admin/auth/callback', '/admin/quick-auth', '/admin/not-configured']
+const PUBLIC_ADMIN = ['/admin/login', '/admin/auth/callback', '/admin/not-configured']
 
 export async function proxy(request: NextRequest) {
   const url = request.nextUrl
