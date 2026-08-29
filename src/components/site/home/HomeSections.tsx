@@ -1,10 +1,11 @@
 import Link from 'next/link'
 import { Picture } from '@/components/site/Picture'
 import { Reveal } from '@/components/site/Reveal'
+import { BeforeAfterSlider } from '@/components/site/project/BeforeAfterSlider'
 import type { ImageUrls, Locale, Project, ProjectImage, Repository, SiteSettings } from '@/lib/data/types'
 import { localePath, type Dictionary } from '@/lib/i18n'
 import { projectTypeLabel } from '@/lib/projectTypes'
-import { coverOf, localizedProject, localizedSettings, projectHref } from '@/lib/view'
+import { beforeAfterOf, coverOf, localizedProject, localizedSettings, projectHref } from '@/lib/view'
 import styles from './Home.module.css'
 
 interface ImageWithUrls {
@@ -108,6 +109,8 @@ export function SelectedWork({ locale, dict, projects, repo }: SelectedProps) {
         <ol className={styles.modules}>
           {projects.map((project, i) => {
             const cover = coverOf(project)
+            const comparison = beforeAfterOf(project)?.[0] ?? null
+            const hasComparison = Boolean(comparison?.before && comparison?.after)
             const p = localizedProject(project, locale)
             const number = String(i + 1).padStart(2, '0')
             const year = Number.isInteger(project.year) && project.year > 1900 ? String(project.year) : null
@@ -115,21 +118,42 @@ export function SelectedWork({ locale, dict, projects, repo }: SelectedProps) {
             return (
               <li key={project.id} className={`${styles.module} ${i % 2 === 1 ? styles.moduleFlip : ''}`}>
                 <Reveal className={styles.moduleMedia}>
-                  <Link href={projectHref(locale, project.slug)} className={`project-link ${styles.moduleLink}`} aria-label={p.name}>
-                    {cover ? (
-                      <span className={`project-image ${styles.moduleImage}`} style={{ aspectRatio: `${cover.width} / ${cover.height}` }}>
-                        <Picture
-                          urls={repo.imageUrls(cover)}
-                          alt={cover.altText || p.name}
-                          width={cover.width}
-                          height={cover.height}
-                          sizes="(min-width: 1024px) 58vw, 100vw"
-                        />
-                      </span>
-                    ) : (
-                      <span className={`project-image ${styles.moduleImage} ${styles.noImage}`} style={{ aspectRatio: '3 / 2' }} />
-                    )}
-                  </Link>
+                  {hasComparison && comparison?.before && comparison.after ? (
+                    <BeforeAfterSlider
+                      before={{
+                        urls: repo.imageUrls(comparison.before),
+                        alt: comparison.before.altText,
+                        width: comparison.before.width,
+                        height: comparison.before.height,
+                      }}
+                      after={{
+                        urls: repo.imageUrls(comparison.after),
+                        alt: comparison.after.altText,
+                        width: comparison.after.width,
+                        height: comparison.after.height,
+                      }}
+                      beforeLabel={dict.project.before}
+                      afterLabel={dict.project.after}
+                      hint={locale === 'es' ? 'Deslice para comparar' : 'Drag to compare'}
+                      projectName={p.name}
+                    />
+                  ) : (
+                    <Link href={projectHref(locale, project.slug)} className={`project-link ${styles.moduleLink}`} aria-label={p.name}>
+                      {cover ? (
+                        <span className={`project-image ${styles.moduleImage}`} style={{ aspectRatio: `${cover.width} / ${cover.height}` }}>
+                          <Picture
+                            urls={repo.imageUrls(cover)}
+                            alt={cover.altText || p.name}
+                            width={cover.width}
+                            height={cover.height}
+                            sizes="(min-width: 1024px) 58vw, 100vw"
+                          />
+                        </span>
+                      ) : (
+                        <span className={`project-image ${styles.moduleImage} ${styles.noImage}`} style={{ aspectRatio: '3 / 2' }} />
+                      )}
+                    </Link>
+                  )}
                 </Reveal>
                 <Reveal className={styles.moduleText} index={1}>
                   <p className="eyebrow">
