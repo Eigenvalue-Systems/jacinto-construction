@@ -50,7 +50,6 @@ export function Hero({ locale, dict, settings, image, project }: HeroProps) {
               {dict.nav.call} {settings.phone}
             </a>
           </Reveal>
-          <div className={styles.datum} aria-hidden="true" />
         </div>
 
         {image && project && proj ? (
