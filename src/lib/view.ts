@@ -11,14 +11,26 @@ export function galleryOf(project: Project) {
   return project.images.filter((i) => i.group === 'gallery')
 }
 
+function imageWords(image: ProjectImage) {
+  return `${image.storageKey} ${image.altText} ${image.caption}`.toLowerCase().replace(/[_-]+/g, ' ')
+}
+
 export function beforeAfterOf(project: Project) {
   const before = project.images.filter((i) => i.group === 'before')
   const after = project.images.filter((i) => i.group === 'after')
-  if (before.length === 0 && after.length === 0) return null
-  const pairs: Array<{ before: ProjectImage | null; after: ProjectImage | null }> = []
-  const n = Math.max(before.length, after.length)
-  for (let i = 0; i < n; i++) pairs.push({ before: before[i] ?? null, after: after[i] ?? null })
-  return pairs
+  if (before.length > 0 || after.length > 0) {
+    const pairs: Array<{ before: ProjectImage | null; after: ProjectImage | null }> = []
+    const n = Math.max(before.length, after.length)
+    for (let i = 0; i < n; i++) pairs.push({ before: before[i] ?? null, after: after[i] ?? null })
+    return pairs
+  }
+
+  const ordered = [...project.images].sort((a, b) => a.displayOrder - b.displayOrder)
+  const beforeCandidate = ordered.find((image) => /(^|\s)(before|old)(\s|$)/.test(imageWords(image))) ?? null
+  const afterCandidate = [...ordered].reverse().find((image) => /(^|\s)(after|finished|complete|completed)(\s|$)/.test(imageWords(image))) ?? null
+
+  if (!beforeCandidate || !afterCandidate || beforeCandidate.id === afterCandidate.id) return null
+  return [{ before: beforeCandidate, after: afterCandidate }]
 }
 
 export function projectHref(locale: Locale, slug: string) {
