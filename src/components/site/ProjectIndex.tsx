@@ -26,9 +26,10 @@ interface Props {
 export function ProjectIndex({ items, sampleLabel, viewLabel }: Props) {
   const [active, setActive] = useState(0)
   const [layers, setLayers] = useState<Array<{ key: number; index: number }>>([{ key: 0, index: 0 }])
+  const activeIndex = Math.min(active, Math.max(items.length - 1, 0))
 
   const activate = (index: number) => {
-    if (index === active) return
+    if (index === activeIndex) return
     setActive(index)
     setLayers((prev) => {
       const last = prev[prev.length - 1]
@@ -38,20 +39,13 @@ export function ProjectIndex({ items, sampleLabel, viewLabel }: Props) {
 
   useEffect(() => {
     for (const offset of [1, -1, 2]) {
-      const neighbor = items[active + offset]
+      const neighbor = items[activeIndex + offset]
       if (neighbor?.image) {
         const img = new Image()
         img.src = neighbor.image.urls.medium
       }
     }
-  }, [active, items])
-
-  useEffect(() => {
-    if (active >= items.length) {
-      setActive(0)
-      setLayers([{ key: Date.now(), index: 0 }])
-    }
-  }, [active, items.length])
+  }, [activeIndex, items])
 
   return (
     <div className={styles.index}>
@@ -63,7 +57,7 @@ export function ProjectIndex({ items, sampleLabel, viewLabel }: Props) {
               className={`project-link ${styles.row}`}
               onMouseEnter={() => activate(i)}
               onFocus={() => activate(i)}
-              data-active={active === i ? 'true' : undefined}
+              data-active={activeIndex === i ? 'true' : undefined}
             >
               {item.image ? (
                 <span className={`project-image ${styles.rowImage}`} style={{ aspectRatio: `${item.image.width} / ${item.image.height}` }}>
@@ -107,7 +101,7 @@ export function ProjectIndex({ items, sampleLabel, viewLabel }: Props) {
           })}
         </div>
         <p className={`mono ${styles.previewMeta}`}>
-          {items[active]?.number} <span aria-hidden="true">/</span> {items[active]?.name}
+          {items[activeIndex]?.number} <span aria-hidden="true">/</span> {items[activeIndex]?.name}
         </p>
       </div>
     </div>

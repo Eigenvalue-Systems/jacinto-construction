@@ -31,13 +31,16 @@ export function LanguagePrompt({ locale, companyName }: Props) {
       sessionStorage.removeItem(JUST_CHOSEN)
       return
     }
-    setVisible(true)
 
+    const frame = requestAnimationFrame(() => setVisible(true))
     const onPageShow = (event: PageTransitionEvent) => {
       if (event.persisted) setVisible(true)
     }
     window.addEventListener('pageshow', onPageShow)
-    return () => window.removeEventListener('pageshow', onPageShow)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('pageshow', onPageShow)
+    }
   }, [])
 
   useEffect(() => {
