@@ -2,6 +2,7 @@ import '@/styles/globals.css'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import type { ReactNode } from 'react'
+import { LanguagePrompt } from '@/components/site/LanguagePrompt'
 import { LocaleProvider } from '@/components/site/LocaleContext'
 import { SiteFooter } from '@/components/site/SiteFooter'
 import { SiteHeader } from '@/components/site/SiteHeader'
@@ -76,6 +77,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
           <LocaleProvider locale={locale}>{children}</LocaleProvider>
         </main>
         <SiteFooter locale={locale} dict={dict} settings={settings} logoUrl={logoUrl} />
+        <LanguagePrompt locale={locale} companyName={settings.companyName} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd(settings, locale, logoUrl)) }}
