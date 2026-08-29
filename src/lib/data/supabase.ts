@@ -104,7 +104,7 @@ interface MessageRow {
   created_at: string
 }
 
-const PROJECT_SELECT = '*, images:project_images(*)'
+const PROJECT_SELECT = '*, images:project_images!project_images_project_id_fkey(*)'
 
 function mapImage(r: ImageRow): ProjectImage {
   return {
