@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Picture } from '@/components/site/Picture'
 import { Reveal } from '@/components/site/Reveal'
+import { BeforeAfterSlider } from '@/components/site/project/BeforeAfterSlider'
 import { Gallery, type GalleryImage } from '@/components/site/project/Gallery'
 import type { Locale, Project, ProjectImage, Repository, SiteSettings } from '@/lib/data/types'
 import { localePath, type Dictionary } from '@/lib/i18n'
@@ -33,8 +34,9 @@ export function ProjectView({ locale, dict, project, settings, repo, previous, n
   const p = localizedProject(project, locale)
   const s = localizedSettings(settings, locale)
   const cover = coverOf(project)
-  const gallery = galleryOf(project).filter((i) => i.id !== cover?.id)
   const pairs = beforeAfterOf(project)
+  const comparisonIds = new Set((pairs ?? []).flatMap((pair) => [pair.before?.id, pair.after?.id]).filter(Boolean))
+  const gallery = galleryOf(project).filter((i) => i.id !== cover?.id && !comparisonIds.has(i.id))
   const galleryImages = gallery.map((i) => toGalleryImage(repo, i, `${p.name}, ${dict.project.photoLabel}`))
   const [statement, ...rest] = p.paragraphs
   const hasYear = Number.isInteger(project.year) && project.year > 1900
@@ -129,12 +131,6 @@ export function ProjectView({ locale, dict, project, settings, repo, previous, n
         ) : null}
       </div>
 
-      {galleryImages.length > 0 ? (
-        <div className={`wrap ${styles.gallery}`}>
-          <Gallery images={galleryImages} strings={lightboxStrings} />
-        </div>
-      ) : null}
-
       {pairs ? (
         <section className={`wrap ${styles.beforeAfter}`} aria-labelledby="before-after-title">
           <Reveal as="h2" className={`eyebrow ${styles.beforeAfterTitle}`} id="before-after-title">
@@ -143,28 +139,56 @@ export function ProjectView({ locale, dict, project, settings, repo, previous, n
           <div className={styles.pairs}>
             {pairs.map((pair, i) => (
               <Reveal key={i} className={styles.pair} index={i}>
-                {[
-                  { img: pair.before, label: dict.project.before },
-                  { img: pair.after, label: dict.project.after },
-                ].map(({ img, label }) => (
-                  <figure key={label} className={styles.pairItem}>
-                    {img ? (
-                      <span className={`project-image ${styles.pairImage}`} style={{ aspectRatio: `${img.width} / ${img.height}` }}>
-                        <Picture urls={repo.imageUrls(img)} alt={img.altText || `${label}: ${p.name}`} width={img.width} height={img.height} sizes="(min-width: 860px) 50vw, 100vw" />
-                      </span>
-                    ) : (
-                      <span className={`project-image ${styles.pairImage} ${styles.pairEmpty}`} style={{ aspectRatio: '4 / 5' }} />
-                    )}
-                    <figcaption className={`eyebrow ${styles.pairCaption}`}>
-                      <span className="eyebrow-ink">{label}</span>
-                      {img?.caption && img.caption !== label ? <span> / {img.caption}</span> : null}
-                    </figcaption>
-                  </figure>
-                ))}
+                {pair.before && pair.after ? (
+                  <BeforeAfterSlider
+                    before={{
+                      urls: repo.imageUrls(pair.before),
+                      alt: pair.before.altText,
+                      width: pair.before.width,
+                      height: pair.before.height,
+                    }}
+                    after={{
+                      urls: repo.imageUrls(pair.after),
+                      alt: pair.after.altText,
+                      width: pair.after.width,
+                      height: pair.after.height,
+                    }}
+                    beforeLabel={dict.project.before}
+                    afterLabel={dict.project.after}
+                    projectName={p.name}
+                  />
+                ) : (
+                  <div className={styles.pairFallback}>
+                    {[
+                      { img: pair.before, label: dict.project.before },
+                      { img: pair.after, label: dict.project.after },
+                    ].map(({ img, label }) => (
+                      <figure key={label} className={styles.pairItem}>
+                        {img ? (
+                          <span className={`project-image ${styles.pairImage}`} style={{ aspectRatio: `${img.width} / ${img.height}` }}>
+                            <Picture urls={repo.imageUrls(img)} alt={img.altText || `${label}: ${p.name}`} width={img.width} height={img.height} sizes="(min-width: 860px) 50vw, 100vw" />
+                          </span>
+                        ) : (
+                          <span className={`project-image ${styles.pairImage} ${styles.pairEmpty}`} style={{ aspectRatio: '4 / 5' }} />
+                        )}
+                        <figcaption className={`eyebrow ${styles.pairCaption}`}>
+                          <span className="eyebrow-ink">{label}</span>
+                          {img?.caption && img.caption !== label ? <span> / {img.caption}</span> : null}
+                        </figcaption>
+                      </figure>
+                    ))}
+                  </div>
+                )}
               </Reveal>
             ))}
           </div>
         </section>
+      ) : null}
+
+      {galleryImages.length > 0 ? (
+        <div className={`wrap ${styles.gallery}`}>
+          <Gallery images={galleryImages} strings={lightboxStrings} />
+        </div>
       ) : null}
 
       <nav className={`wrap ${styles.pager}`} aria-label={`${dict.project.previous} / ${dict.project.next}`}>
