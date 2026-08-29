@@ -1,7 +1,6 @@
 'use server'
 
 import type { FormState } from '@/app/admin/actions'
-import { isEmailAllowed } from '@/lib/supabase/env'
 import { createServerSupabase } from '@/lib/supabase/server'
 import { siteUrl } from '@/lib/view'
 
@@ -14,7 +13,6 @@ export async function requestMagicLink(_prev: FormState, formData: FormData): Pr
   const next = nextRaw.startsWith('/admin') && !nextRaw.startsWith('/admin/login') ? nextRaw : '/admin/projects'
 
   if (!email) return fail('failed')
-  if (!isEmailAllowed(email)) return fail('not-allowed')
 
   const supabase = await createServerSupabase()
   const { error } = await supabase.auth.signInWithOtp({
