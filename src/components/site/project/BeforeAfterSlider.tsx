@@ -16,10 +16,11 @@ interface Props {
   after: SliderImage
   beforeLabel: string
   afterLabel: string
+  hint: string
   projectName: string
 }
 
-export function BeforeAfterSlider({ before, after, beforeLabel, afterLabel, projectName }: Props) {
+export function BeforeAfterSlider({ before, after, beforeLabel, afterLabel, hint, projectName }: Props) {
   const [position, setPosition] = useState(50)
   const id = useId()
 
@@ -74,7 +75,7 @@ export function BeforeAfterSlider({ before, after, beforeLabel, afterLabel, proj
       </div>
       <figcaption className={styles.caption}>
         <span>{beforeLabel}</span>
-        <span className={styles.hint}>Drag to compare</span>
+        <span className={styles.hint}>{hint}</span>
         <span>{afterLabel}</span>
       </figcaption>
     </figure>
