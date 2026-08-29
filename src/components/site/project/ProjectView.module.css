@@ -151,13 +151,17 @@
 }
 
 .pair {
+  display: block;
+}
+
+.pairFallback {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--gap);
 }
 
 @media (min-width: 720px) {
-  .pair {
+  .pairFallback {
     grid-template-columns: 1fr 1fr;
   }
 }
