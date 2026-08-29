@@ -21,11 +21,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 const FEATURED_ORDER = [
+  'hidden-basement-door',
   'chicago-south-side-kitchen',
   'homer-glen-steam-shower',
   'chicago-north-side-apartment',
   'lake-geneva-balcony',
-  'hidden-basement-door',
   'toyota-dealership-tile',
 ]
 
