@@ -40,6 +40,28 @@ where slug in (
   'coffee-station'
 );
 
+update public.projects
+set featured = slug in (
+  'toyota-dealership-tile',
+  'homer-glen-steam-shower',
+  'chicago-south-side-kitchen',
+  'chicago-north-side-apartment',
+  'lake-geneva-balcony',
+  'hidden-basement-door'
+)
+where slug in (
+  'toyota-dealership-tile',
+  'homer-glen-steam-shower',
+  'oak-lawn-bathroom',
+  'chicago-south-side-kitchen',
+  'crestwood-bathroom',
+  'wisconsin-kitchen',
+  'chicago-north-side-apartment',
+  'lake-geneva-balcony',
+  'hidden-basement-door',
+  'coffee-station'
+);
+
 create index if not exists projects_public_category_idx
   on public.projects (published, project_type, display_order);
 create index if not exists projects_cover_image_id_idx
@@ -54,6 +76,12 @@ create index if not exists site_settings_about_image_id_idx
 
 update public.site_settings
 set
+  hero_image_id = (
+    select cover_image_id
+    from public.projects
+    where slug = 'chicago-south-side-kitchen'
+    limit 1
+  ),
   contact_copy = 'Call or text for the fastest answer. You can also email us or send the project details here.',
   contact_copy_es = 'Llame o mande texto para una respuesta más rápida. También puede enviar correo o los detalles del proyecto aquí.'
 where id = 1;
