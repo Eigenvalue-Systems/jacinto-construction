@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import { useActionState } from 'react'
-import { requestPasswordReset, signIn, updatePassword, type FormState } from '@/app/admin/actions'
+import { requestPasswordReset, updatePassword, type FormState } from '@/app/admin/actions'
+import { requestMagicLink } from '@/app/admin/magic-action'
 
 export interface LoginStrings {
   title: string
@@ -36,6 +37,8 @@ function messageFor(strings: LoginStrings, code?: string) {
       return strings.notAllowed
     case 'expired':
       return strings.sessionExpired
+    case 'magic-sent':
+      return 'Check your email and click the sign-in link.'
     case 'reset-sent':
       return strings.resetSent
     case 'too-short':
@@ -52,7 +55,7 @@ function messageFor(strings: LoginStrings, code?: string) {
 }
 
 export function LoginForm({ strings, next, initialError }: { strings: LoginStrings; next: string; initialError?: string }) {
-  const [state, action, pending] = useActionState(signIn, idle)
+  const [state, action, pending] = useActionState(requestMagicLink, idle)
   const message = messageFor(strings, state.code ?? initialError)
   return (
     <form action={action} className="admin-grid">
@@ -67,18 +70,11 @@ export function LoginForm({ strings, next, initialError }: { strings: LoginStrin
         <label htmlFor="login-email">{strings.email}</label>
         <input id="login-email" name="email" type="email" autoComplete="username" required />
       </div>
-      <div className="field">
-        <label htmlFor="login-password">{strings.password}</label>
-        <input id="login-password" name="password" type="password" autoComplete="current-password" required />
-      </div>
       <div className="admin-actions">
         <button type="submit" className="btn btn-ink" disabled={pending}>
-          {strings.submit}
+          {pending ? 'Sending…' : 'Email me a sign-in link'}
         </button>
       </div>
-      <Link href="/admin/login?reset=1" className="link-plain" style={{ fontSize: 14 }}>
-        {strings.forgot}
-      </Link>
     </form>
   )
 }
